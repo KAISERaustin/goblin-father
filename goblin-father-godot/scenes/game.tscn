@@ -297,7 +297,7 @@ tile_map_data = PackedByteArray("AAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA
 tile_set = SubResource("TileSet_lbhrr")
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("1_uwrxv")]
-position = Vector2(1998, 2)
+position = Vector2(-39, 3)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -45)
@@ -514,5 +514,5 @@ rotation = 3.14159
 [node name="KillZone" parent="Borders" instance=ExtResource("5_iywne")]
 position = Vector2(0, 90)
 
-[node name="LevelWonArea" parent="Borders" groups=["win"] instance=ExtResource("11_kvpfn")]
+[node name="LevelWonArea" parent="Borders" instance=ExtResource("11_kvpfn")]
 position = Vector2(2163, -33)

@@ -4,6 +4,9 @@ extends CharacterBody2D
 const SPEED = 100.0
 const JUMP_VELOCITY = -310.0
 
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var death_timer: Timer = $DeathTimer
+@onready var win_timer: Timer = $WinTimer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
@@ -42,3 +45,25 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("win"):
+		print("WINNER")
+		win_timer.start()
+	elif area.is_in_group("enemy_slime"):
+		print("SLIME")
+		$CollisionShape2D.set_deferred("disabled", true)
+		death_timer.start()
+	elif area.is_in_group("killzone"):
+		print("DEAD")
+	elif area.is_in_group("solid_block"):
+		print("GROUND")
+		
+func _on_death_timer_timeout() -> void:
+	Engine.time_scale = 1.0
+	$CollisionShape2D.set_deferred("disabled", false)
+	get_tree().reload_current_scene()
+	
+func _on_win_timer_timeout() -> void:
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

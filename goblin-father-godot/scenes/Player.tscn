@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://d21xhwirpnols"]
+[gd_scene load_steps=27 format=3 uid="uid://d21xhwirpnols"]
 
 [ext_resource type="Script" uid="uid://7fvs1cj2t7x3" path="res://scripts/player.gd" id="1_v6fml"]
 [ext_resource type="Texture2D" uid="uid://dtxcnwvpgvshy" path="res://assets/knight 2.png" id="2_v6fml"]
@@ -168,7 +168,10 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cw2d6"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6fml"]
+size = Vector2(10, 15.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0vlq"]
 size = Vector2(10, 15)
 
 [node name="Player" type="CharacterBody2D"]
@@ -179,9 +182,24 @@ script = ExtResource("1_v6fml")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_mdl7e")
-animation = &"jumping"
+animation = &"idle"
 autoplay = "idle"
+
+[node name="Area2D" type="Area2D" parent="." groups=["player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -11.75)
+shape = SubResource("RectangleShape2D_v6fml")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -11.5)
-shape = SubResource("RectangleShape2D_cw2d6")
+shape = SubResource("RectangleShape2D_p0vlq")
+
+[node name="DeathTimer" type="Timer" parent="."]
+
+[node name="WinTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="WinTimer" to="." method="_on_win_timer_timeout"]

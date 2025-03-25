@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cci5xsib4tlix"]
+[gd_scene load_steps=9 format=3 uid="uid://cci5xsib4tlix"]
 
 [ext_resource type="Script" uid="uid://wlaq8svsppx3" path="res://scripts/slime.gd" id="1_n6pvg"]
-[ext_resource type="PackedScene" uid="uid://bjutd5xtqvtxv" path="res://scenes/kill_zone.tscn" id="2_n6pvg"]
 [ext_resource type="Texture2D" uid="uid://cbbap0gi5gvmj" path="res://assets/slime_purple.png" id="2_pjw23"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2npkn"]
@@ -40,8 +39,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0l8pv"]
-size = Vector2(14, 13)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p2gj0"]
+size = Vector2(10, 11)
 
 [node name="Slime" type="Node2D"]
 script = ExtResource("1_n6pvg")
@@ -51,12 +50,6 @@ position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_0l8pv")
 autoplay = "default"
 
-[node name="KillZone" parent="AnimatedSprite2D" instance=ExtResource("2_n6pvg")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/KillZone"]
-position = Vector2(0, 5.5)
-shape = SubResource("RectangleShape2D_0l8pv")
-
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 position = Vector2(0, -6)
 target_position = Vector2(7, 0)
@@ -64,3 +57,9 @@ target_position = Vector2(7, 0)
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(0, -6)
 target_position = Vector2(-7, 0)
+
+[node name="Area2D" type="Area2D" parent="." groups=["enemy_slime"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_p2gj0")

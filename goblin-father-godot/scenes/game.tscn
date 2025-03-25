@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d1dq0mprty0tc"]
+[gd_scene load_steps=18 format=3 uid="uid://d1dq0mprty0tc"]
 
 [ext_resource type="PackedScene" uid="uid://d21xhwirpnols" path="res://scenes/Player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://ci2lxo5mrot00" path="res://assets/world_tileset.png" id="2_yqjtg"]
@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://btkgccmrm5kna" path="res://fonts/PixelOperator8.ttf" id="7_u5sy4"]
 [ext_resource type="Script" uid="uid://c58s5l7j4e02v" path="res://scripts/game_manager.gd" id="8_gee14"]
 [ext_resource type="FontFile" uid="uid://b3tjvieravy7m" path="res://fonts/PixelOperator8-Bold.ttf" id="9_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://b012m5qyiq4cm" path="res://scenes/border_wall_left.tscn" id="10_vtaks"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -220,8 +221,6 @@ texture = ExtResource("2_yqjtg")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p57ef"]
-
 [sub_resource type="Animation" id="Animation_iywne"]
 length = 0.001
 tracks/0/type = "value"
@@ -278,6 +277,8 @@ _data = {
 &"move": SubResource("Animation_lbhrr")
 }
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p57ef"]
+
 [node name="Game" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -300,12 +301,6 @@ limit_bottom = 165
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
-
-[node name="KillZone" parent="." instance=ExtResource("5_iywne")]
-position = Vector2(0, 180)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
-shape = SubResource("WorldBoundaryShape2D_p57ef")
 
 [node name="Coins" type="Node" parent="."]
 
@@ -444,3 +439,18 @@ theme_override_fonts/font = ExtResource("9_0tnpc")
 theme_override_font_sizes/font_size = 8
 text = "Coins collected - X"
 autowrap_mode = 2
+
+[node name="Borders" type="Node" parent="."]
+
+[node name="StaticBody2D" parent="Borders" instance=ExtResource("10_vtaks")]
+position = Vector2(-145, -75)
+
+[node name="StaticBody2D2" parent="Borders" instance=ExtResource("10_vtaks")]
+position = Vector2(1729, -121)
+rotation = 3.14159
+
+[node name="KillZone" parent="Borders" instance=ExtResource("5_iywne")]
+position = Vector2(0, 180)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/KillZone"]
+shape = SubResource("WorldBoundaryShape2D_p57ef")

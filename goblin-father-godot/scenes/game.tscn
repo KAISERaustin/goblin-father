@@ -1,6 +1,5 @@
-[gd_scene load_steps=19 format=4 uid="uid://d1dq0mprty0tc"]
+[gd_scene load_steps=18 format=4 uid="uid://d1dq0mprty0tc"]
 
-[ext_resource type="PackedScene" uid="uid://31ebvc3c6evx" path="res://scenes/interface.tscn" id="1_ir15t"]
 [ext_resource type="PackedScene" uid="uid://d21xhwirpnols" path="res://scenes/Player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://ci2lxo5mrot00" path="res://assets/world_tileset.png" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://crmm6xkgjlkca" path="res://scenes/platform.tscn" id="3_lnu2h"]
@@ -307,13 +306,6 @@ limit_bottom = 165
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
-
-[node name="Interface" parent="Player/Camera2D" instance=ExtResource("1_ir15t")]
-offset_left = -50.595
-offset_top = 106.265
-offset_right = -50.595
-offset_bottom = 106.265
-scale = Vector2(0.385, 0.385)
 
 [node name="Coins" type="Node" parent="."]
 

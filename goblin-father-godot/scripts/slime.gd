@@ -7,8 +7,11 @@ var direction = 1
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 
 @onready var head_hit_check: Area2D = $HeadHitCheck
+@onready var body_check: Area2D = $BodyCheck
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+@onready var death_timer: Timer = $DeathTimer
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
  
@@ -35,3 +38,17 @@ func _process(delta) -> void:
 		animated_sprite.flip_h = false
 	# the actual movement 
 	position.x += direction * SPEED * delta
+
+func _on_head_hit_check_area_entered(area: Area2D) -> void:
+	if area.is_in_group("player"):
+		play_death()
+		
+func play_death() -> void:
+	body_check.monitoring = false
+	animated_sprite.play("Death")
+	set_deferred("monitoring", false)
+	death_timer.start()
+	
+func _on_death_timer_timeout() -> void:
+	queue_free()
+	

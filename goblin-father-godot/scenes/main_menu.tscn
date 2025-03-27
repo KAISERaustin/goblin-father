@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://b40ip6k0ocpmd"]
+[gd_scene load_steps=16 format=3 uid="uid://b40ip6k0ocpmd"]
 
 [ext_resource type="FontFile" uid="uid://b3tjvieravy7m" path="res://fonts/PixelOperator8-Bold.ttf" id="1_l6cm7"]
-[ext_resource type="Script" uid="uid://dl3cdj4lpf52i" path="res://scenes/main_menu.gd" id="1_wu84c"]
+[ext_resource type="Script" uid="uid://dl3cdj4lpf52i" path="res://scripts/main_menu.gd" id="1_wu84c"]
 [ext_resource type="Texture2D" uid="uid://bce2wj75k251o" path="res://assets/main_menu_game_background.png" id="2_ekxnf"]
 [ext_resource type="FontFile" uid="uid://btkgccmrm5kna" path="res://fonts/PixelOperator8.ttf" id="3_bqqt6"]
 [ext_resource type="AudioStream" uid="uid://d1oyx6r4nybvv" path="res://sounds/button_press.mp3" id="5_8ln24"]
+[ext_resource type="PackedScene" uid="uid://dimmpboqxbgrp" path="res://scenes/music.tscn" id="6_rtw2f"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bqqt6"]
 texture = ExtResource("2_ekxnf")
@@ -51,8 +52,25 @@ tracks/0/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_8ln24"]
+resource_name = "exit_button_pressed"
+length = 0.35
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:playing")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.37893),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_rtw2f"]
-resource_name = "button_press"
+resource_name = "start_button_press"
 length = 0.5
 step = 0.3
 tracks/0/type = "value"
@@ -71,7 +89,8 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tbmy8"]
 _data = {
 &"RESET": SubResource("Animation_oa1go"),
-&"button_press": SubResource("Animation_rtw2f")
+&"exit_button_pressed": SubResource("Animation_8ln24"),
+&"start_button_press": SubResource("Animation_rtw2f")
 }
 
 [node name="MainMenu" type="Control"]
@@ -183,6 +202,8 @@ root_node = NodePath("../AudioStreamPlayer2D")
 libraries = {
 &"": SubResource("AnimationLibrary_tbmy8")
 }
+
+[node name="Music" parent="." instance=ExtResource("6_rtw2f")]
 
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]

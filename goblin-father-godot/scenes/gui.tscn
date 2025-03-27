@@ -1,13 +1,18 @@
 [gd_scene load_steps=6 format=3 uid="uid://drl2nkrpbdbq3"]
 
-[ext_resource type="Script" uid="uid://dl4i087lindgh" path="res://scenes/gui.gd" id="1_efmwq"]
 [ext_resource type="FontFile" uid="uid://b3tjvieravy7m" path="res://fonts/PixelOperator8-Bold.ttf" id="2_mfius"]
 [ext_resource type="Texture2D" uid="uid://b6blnhe7y3y2g" path="res://sprites/button_left.png" id="3_jqlde"]
 [ext_resource type="Texture2D" uid="uid://cw6hbuu3l26wu" path="res://sprites/button_right.png" id="4_08a8y"]
 [ext_resource type="Texture2D" uid="uid://dju0n278aj7e8" path="res://sprites/button_up.png" id="5_7yii4"]
 
+[sub_resource type="GDScript" id="GDScript_b8iy7"]
+script/source = "extends CanvasLayer
+
+@onready var lbl_score: Label = $lblScore
+"
+
 [node name="GUI" type="CanvasLayer"]
-script = ExtResource("1_efmwq")
+script = SubResource("GDScript_b8iy7")
 
 [node name="lblscore" type="Label" parent="."]
 unique_name_in_owner = true
@@ -16,8 +21,8 @@ offset_top = 40.0
 offset_right = 186.0
 offset_bottom = 128.0
 theme_override_fonts/font = ExtResource("2_mfius")
-theme_override_font_sizes/font_size = 64
-text = "COINS: "
+theme_override_font_sizes/font_size = 32
+text = "COINS: 0"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 2

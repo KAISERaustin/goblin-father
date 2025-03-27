@@ -3,12 +3,13 @@
 [ext_resource type="Script" uid="uid://wsw38gpskynx" path="res://level_won_area.gd" id="1_vspio"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mg273"]
-size = Vector2(124, 67)
+size = Vector2(14, 14)
 
 [node name="LevelWonArea" type="Area2D" groups=["win"]]
 script = ExtResource("1_vspio")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_mg273")
 
 [node name="Timer" type="Timer" parent="."]

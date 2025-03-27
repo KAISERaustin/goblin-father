@@ -177,6 +177,7 @@ size = Vector2(10, 15)
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
+floor_constant_speed = true
 script = ExtResource("1_v6fml")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

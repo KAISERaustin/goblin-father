@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cbbap0gi5gvmj" path="res://assets/slime_purple.png" id="2_pjw23"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n6pvg"]
-size = Vector2(10, 12)
+size = Vector2(10, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2npkn"]
 atlas = ExtResource("2_pjw23")
@@ -49,8 +49,8 @@ size = Vector2(10, 12)
 floor_constant_speed = true
 script = ExtResource("1_n6pvg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
+[node name="GroundCheck" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_n6pvg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

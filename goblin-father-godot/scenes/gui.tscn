@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://drl2nkrpbdbq3"]
+
+[ext_resource type="Script" uid="uid://dl4i087lindgh" path="res://scenes/gui.gd" id="1_efmwq"]
+[ext_resource type="FontFile" uid="uid://b3tjvieravy7m" path="res://fonts/PixelOperator8-Bold.ttf" id="2_mfius"]
+[ext_resource type="Texture2D" uid="uid://b6blnhe7y3y2g" path="res://sprites/button_left.png" id="3_jqlde"]
+[ext_resource type="Texture2D" uid="uid://cw6hbuu3l26wu" path="res://sprites/button_right.png" id="4_08a8y"]
+[ext_resource type="Texture2D" uid="uid://dju0n278aj7e8" path="res://sprites/button_up.png" id="5_7yii4"]
+
+[node name="GUI" type="CanvasLayer"]
+script = ExtResource("1_efmwq")
+
+[node name="lblscore" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 186.0
+offset_bottom = 128.0
+theme_override_fonts/font = ExtResource("2_mfius")
+theme_override_font_sizes/font_size = 64
+text = "COINS: "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = -40.0
+grow_vertical = 0
+
+[node name="Left" type="TouchScreenButton" parent="HBoxContainer"]
+position = Vector2(0, -88)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("3_jqlde")
+action = "move_left"
+
+[node name="Right" type="TouchScreenButton" parent="HBoxContainer"]
+position = Vector2(192, -88)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("4_08a8y")
+action = "move_right"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -80.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="jump" type="TouchScreenButton" parent="HBoxContainer3"]
+position = Vector2(-88, -88)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("5_7yii4")
+action = "jump"

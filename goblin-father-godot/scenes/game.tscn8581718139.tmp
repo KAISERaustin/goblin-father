@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://d1dq0mprty0tc"]
+[gd_scene load_steps=17 format=4 uid="uid://d1dq0mprty0tc"]
 
 [ext_resource type="PackedScene" uid="uid://d21xhwirpnols" path="res://scenes/Player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://ci2lxo5mrot00" path="res://assets/world_tileset.png" id="2_yqjtg"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cci5xsib4tlix" path="res://scenes/slime.tscn" id="6_p57ef"]
 [ext_resource type="FontFile" uid="uid://btkgccmrm5kna" path="res://fonts/PixelOperator8.ttf" id="7_u5sy4"]
 [ext_resource type="Script" uid="uid://c58s5l7j4e02v" path="res://scripts/game_manager.gd" id="8_gee14"]
+[ext_resource type="FontFile" uid="uid://b3tjvieravy7m" path="res://fonts/PixelOperator8-Bold.ttf" id="9_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://b012m5qyiq4cm" path="res://scenes/border_wall_left.tscn" id="10_vtaks"]
 [ext_resource type="PackedScene" uid="uid://bxotjlnrlvcxw" path="res://scenes/level_won_area.tscn" id="11_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://wpns5o4r00ex" path="res://scenes/moving_platform_left.tscn" id="13_kvuet"]
@@ -359,14 +360,29 @@ scale = Vector2(1.00915, 1.01568)
 [node name="Coin7" parent="Coins" instance=ExtResource("4_lbhrr")]
 position = Vector2(976, -108)
 
+[node name="Coin8" parent="Coins" instance=ExtResource("4_lbhrr")]
+position = Vector2(928, -164)
+
 [node name="Coin9" parent="Coins" instance=ExtResource("4_lbhrr")]
 position = Vector2(916, -164)
 
 [node name="Coin10" parent="Coins" instance=ExtResource("4_lbhrr")]
 position = Vector2(940, -164)
 
+[node name="Coin11" parent="Coins" instance=ExtResource("4_lbhrr")]
+position = Vector2(940, -176)
+
+[node name="Coin12" parent="Coins" instance=ExtResource("4_lbhrr")]
+position = Vector2(928, -176)
+
+[node name="Coin13" parent="Coins" instance=ExtResource("4_lbhrr")]
+position = Vector2(916, -176)
+
 [node name="Coin14" parent="Coins" instance=ExtResource("4_lbhrr")]
 position = Vector2(940, -188)
+
+[node name="Coin15" parent="Coins" instance=ExtResource("4_lbhrr")]
+position = Vector2(928, -188)
 
 [node name="Coin16" parent="Coins" instance=ExtResource("4_lbhrr")]
 position = Vector2(916, -188)
@@ -453,6 +469,18 @@ text = "Watch out!"
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("8_gee14")
+
+[node name="lblScore" type="Label" parent="GameManager"]
+visible = false
+offset_left = -77.0
+offset_top = -151.0
+offset_right = 73.0
+offset_bottom = -143.0
+theme_override_colors/font_color = Color(0.0705882, 0, 0.337255, 1)
+theme_override_fonts/font = ExtResource("9_0tnpc")
+theme_override_font_sizes/font_size = 8
+text = "Coins collected - X"
+autowrap_mode = 2
 
 [node name="Borders" type="Node" parent="."]
 

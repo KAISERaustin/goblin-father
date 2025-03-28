@@ -5,9 +5,7 @@ extends Control
 
 func _on_start_pressed() -> void:
 	animation_player.play("start_button_press")
-	
 	await animation_player.animation_finished
-	
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
 
 func _on_options_pressed() -> void:

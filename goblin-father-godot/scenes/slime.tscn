@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://cci5xsib4tlix"]
+[gd_scene load_steps=24 format=3 uid="uid://cci5xsib4tlix"]
 
 [ext_resource type="Script" uid="uid://wlaq8svsppx3" path="res://scripts/slime.gd" id="1_n6pvg"]
 [ext_resource type="Texture2D" uid="uid://bhhyi7mbabwa" path="res://sprites/slime_purple.png" id="2_n6pvg"]
 [ext_resource type="Texture2D" uid="uid://cbbap0gi5gvmj" path="res://assets/slime_purple.png" id="2_pjw23"]
+[ext_resource type="AudioStream" uid="uid://rgj0tgas4322" path="res://sounds/player_kick.wav" id="4_pjw23"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n6pvg"]
 size = Vector2(10, 1)
@@ -165,6 +166,10 @@ position = Vector2(0, -4.25)
 shape = SubResource("RectangleShape2D_p2gj0")
 
 [node name="DeathTimer" type="Timer" parent="."]
+
+[node name="SlimeKill" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_pjw23")
+bus = &"SFX"
 
 [connection signal="area_entered" from="HeadHitCheck" to="." method="_on_head_hit_check_area_entered"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

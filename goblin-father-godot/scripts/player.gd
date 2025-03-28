@@ -6,6 +6,9 @@ const JUMP_VELOCITY = -310.0
 @onready var death_timer: Timer = $DeathTimer
 @onready var win_timer: Timer = $WinTimer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var jump_noise: AudioStreamPlayer2D = $JumpNoise
+@onready var death_noise: AudioStreamPlayer2D = $DeathNoise
+@onready var game_manager: Node = %GameManager
 
 func ready() -> void:
 	add_to_group("player")
@@ -18,6 +21,7 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		jump_noise.play()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -47,19 +51,18 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func landed_on_enemy_slime() -> void:
+	velocity.y = JUMP_VELOCITY * .75
+
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("win"):
-		print("WINNER")
 		win_timer.start()
 	elif area.is_in_group("enemy_slime"):
-		print("SLIME")
+		death_noise.play()
+		game_manager.pause_music()
 		Engine.time_scale = 0
 		death_timer.start()
-	elif area.is_in_group("killzone"):
-		print("DEAD")
-	elif area.is_in_group("solid_block"):
-		print("GROUND")
 		
 func _on_death_timer_timeout() -> void:
 	Engine.time_scale = 1

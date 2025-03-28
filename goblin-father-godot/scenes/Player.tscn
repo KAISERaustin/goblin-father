@@ -1,7 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://d21xhwirpnols"]
+[gd_scene load_steps=29 format=3 uid="uid://d21xhwirpnols"]
 
 [ext_resource type="Script" uid="uid://7fvs1cj2t7x3" path="res://scripts/player.gd" id="1_v6fml"]
 [ext_resource type="Texture2D" uid="uid://dtxcnwvpgvshy" path="res://assets/knight 2.png" id="2_v6fml"]
+[ext_resource type="AudioStream" uid="uid://ctp0tdtrf5lpj" path="res://sounds/player_death.mp3" id="3_mdl7e"]
+[ext_resource type="AudioStream" uid="uid://cd6i8mfwf8kq" path="res://sounds/player_jump.mp3" id="4_mdl7e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3li8b"]
 atlas = ExtResource("2_v6fml")
@@ -183,7 +185,7 @@ script = ExtResource("1_v6fml")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_mdl7e")
-animation = &"idle"
+animation = &"jumping"
 autoplay = "idle"
 
 [node name="Area2D" type="Area2D" parent="." groups=["player"]]
@@ -197,11 +199,22 @@ position = Vector2(0, -11.5)
 shape = SubResource("RectangleShape2D_p0vlq")
 
 [node name="DeathTimer" type="Timer" parent="."]
+wait_time = 2.3
 ignore_time_scale = true
 
 [node name="WinTimer" type="Timer" parent="."]
 wait_time = 3.0
 ignore_time_scale = true
+
+[node name="DeathNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_mdl7e")
+attenuation = 3.03143
+bus = &"SFX"
+
+[node name="JumpNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_mdl7e")
+volume_db = -12.877
+bus = &"SFX"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

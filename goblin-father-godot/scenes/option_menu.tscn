@@ -1,0 +1,155 @@
+[gd_scene load_steps=14 format=3 uid="uid://cwin37kd46hp4"]
+
+[ext_resource type="Script" uid="uid://klricr5gavcd" path="res://scripts/option_menu.gd" id="1_40sux"]
+[ext_resource type="Texture2D" uid="uid://bce2wj75k251o" path="res://assets/main_menu_game_background.png" id="1_hecwe"]
+[ext_resource type="PackedScene" uid="uid://dimmpboqxbgrp" path="res://scenes/music.tscn" id="3_1xj3o"]
+[ext_resource type="FontFile" uid="uid://b3tjvieravy7m" path="res://fonts/PixelOperator8-Bold.ttf" id="4_hrgik"]
+[ext_resource type="AudioStream" uid="uid://d1oyx6r4nybvv" path="res://sounds/button_press.mp3" id="5_2mid4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_40sux"]
+texture = ExtResource("1_hecwe")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2mid4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6sq6"]
+bg_color = Color(0.338965, 0.24086, 1.44392e-07, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 18.0
+expand_margin_right = 18.0
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_laan2"]
+bg_color = Color(0.298118, 0.210185, 1.20327e-07, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 18.0
+expand_margin_right = 18.0
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6uflr"]
+bg_color = Color(0.459325, 0.331248, 0, 1)
+border_color = Color(0.458824, 0.329412, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 18.0
+expand_margin_right = 18.0
+shadow_size = 3
+
+[sub_resource type="Animation" id="Animation_x6sq6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_hrgik"]
+resource_name = "enable_mobile_controls"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2mid4"]
+_data = {
+&"RESET": SubResource("Animation_x6sq6"),
+&"enable_mobile_controls": SubResource("Animation_hrgik")
+}
+
+[node name="Option Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_40sux")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_40sux")
+
+[node name="Music" parent="." instance=ExtResource("3_1xj3o")]
+
+[node name="BoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -20.0
+offset_right = 160.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnableMobileControls" type="Button" parent="BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.697585, 0.509486, 0, 1)
+theme_override_colors/font_color = Color(0.698039, 0.509804, 0, 1)
+theme_override_colors/font_focus_color = Color(0.698039, 0.509804, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.698039, 0.509804, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_hrgik")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2mid4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_x6sq6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_laan2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6uflr")
+text = "Enable Mobile Controls"
+
+[node name="Main Menu" type="Button" parent="BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.697585, 0.509486, 0, 1)
+theme_override_colors/font_color = Color(0.698039, 0.509804, 0, 1)
+theme_override_colors/font_focus_color = Color(0.698039, 0.509804, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.698039, 0.509804, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_hrgik")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2mid4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_x6sq6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_laan2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6uflr")
+text = "Main Menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2mid4")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_2mid4")
+
+[connection signal="pressed" from="BoxContainer/EnableMobileControls" to="." method="_on_enable_mobile_controls_pressed"]
+[connection signal="pressed" from="BoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="BoxContainer/Main Menu" to="." method="_on_enable_mobile_controls_pressed"]

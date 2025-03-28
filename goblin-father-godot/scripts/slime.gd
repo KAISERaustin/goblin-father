@@ -12,6 +12,9 @@ var is_dead = false
 @onready var ground_check: CollisionShape2D = $GroundCheck
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var slime_kill: AudioStreamPlayer2D = $SlimeKill
+
+@onready var game_manager: Node = %GameManager
 
 @onready var death_timer: Timer = $DeathTimer
 
@@ -49,6 +52,8 @@ func _process(delta) -> void:
 
 func _on_head_hit_check_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player"):
+		game_manager.make_player_jump()
+		slime_kill.play()
 		is_dead = true
 		head_hit_check.queue_free() 
 		body_check.queue_free() 

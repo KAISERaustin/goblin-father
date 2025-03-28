@@ -1,46 +1,55 @@
-[gd_scene load_steps=20 format=3 uid="uid://cci5xsib4tlix"]
+[gd_scene load_steps=23 format=3 uid="uid://cci5xsib4tlix"]
 
 [ext_resource type="Script" uid="uid://wlaq8svsppx3" path="res://scripts/slime.gd" id="1_n6pvg"]
 [ext_resource type="Texture2D" uid="uid://bhhyi7mbabwa" path="res://sprites/slime_purple.png" id="2_n6pvg"]
 [ext_resource type="Texture2D" uid="uid://cbbap0gi5gvmj" path="res://assets/slime_purple.png" id="2_pjw23"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pjw23"]
-size = Vector2(10, 2)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n6pvg"]
 size = Vector2(10, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pjw23"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6pvg"]
 atlas = ExtResource("2_n6pvg")
 region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0l8pv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjw23"]
 atlas = ExtResource("2_n6pvg")
 region = Rect2(24, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vnioy"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0l8pv"]
 atlas = ExtResource("2_n6pvg")
 region = Rect2(48, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2xjuo"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnioy"]
 atlas = ExtResource("2_n6pvg")
 region = Rect2(72, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a02ik"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xjuo"]
 atlas = ExtResource("2_n6pvg")
 region = Rect2(96, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pu8ps"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_a02ik"]
 atlas = ExtResource("2_n6pvg")
 region = Rect2(120, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g40cl"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu8ps"]
 atlas = ExtResource("2_n6pvg")
 region = Rect2(144, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cxm07"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_g40cl"]
 atlas = ExtResource("2_n6pvg")
 region = Rect2(168, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxm07"]
+atlas = ExtResource("2_n6pvg")
+region = Rect2(168, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2qvl"]
+atlas = ExtResource("2_n6pvg")
+region = Rect2(144, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyl0w"]
+atlas = ExtResource("2_n6pvg")
+region = Rect2(120, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2npkn"]
 atlas = ExtResource("2_pjw23")
@@ -61,6 +70,9 @@ region = Rect2(72, 24, 24, 24)
 [sub_resource type="SpriteFrames" id="SpriteFrames_0l8pv"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6pvg")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pjw23")
 }, {
@@ -84,10 +96,16 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cxm07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2qvl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tyl0w")
 }],
 "loop": false,
 "name": &"Death",
-"speed": 25.0
+"speed": 50.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -107,18 +125,15 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pjw23"]
+size = Vector2(8, 2)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2gj0"]
-size = Vector2(10, 9.5)
+size = Vector2(12, 9.5)
 
 [node name="Slime" type="CharacterBody2D"]
 floor_constant_speed = true
 script = ExtResource("1_n6pvg")
-
-[node name="HeadHitCheck" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HeadHitCheck"]
-position = Vector2(0, -11)
-shape = SubResource("RectangleShape2D_pjw23")
 
 [node name="GroundCheck" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
@@ -136,6 +151,12 @@ target_position = Vector2(7, 0)
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(0, -6)
 target_position = Vector2(-7, 0)
+
+[node name="HeadHitCheck" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeadHitCheck"]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_pjw23")
 
 [node name="BodyCheck" type="Area2D" parent="." groups=["enemy_slime"]]
 

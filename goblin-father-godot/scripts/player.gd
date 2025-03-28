@@ -7,6 +7,9 @@ const JUMP_VELOCITY = -310.0
 @onready var win_timer: Timer = $WinTimer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+func ready() -> void:
+	add_to_group("player")
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -51,7 +54,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		win_timer.start()
 	elif area.is_in_group("enemy_slime"):
 		print("SLIME")
-		$CollisionShape2D.set_deferred("disabled", true)
+		Engine.time_scale = 0
 		death_timer.start()
 	elif area.is_in_group("killzone"):
 		print("DEAD")
@@ -59,8 +62,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		print("GROUND")
 		
 func _on_death_timer_timeout() -> void:
-	Engine.time_scale = 1.0
-	$CollisionShape2D.set_deferred("disabled", false)
+	Engine.time_scale = 1
 	get_tree().reload_current_scene()
 	
 func _on_win_timer_timeout() -> void:

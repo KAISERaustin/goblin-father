@@ -451,7 +451,10 @@ position = Vector2(2784, -96)
 rotation = 3.14159
 
 [node name="KillZone" parent="Borders" instance=ExtResource("5_iywne")]
-position = Vector2(-280, 64)
+position = Vector2(1056, 128)
+
+[node name="KillZone2" parent="Borders" instance=ExtResource("5_iywne")]
+position = Vector2(2096, 128)
 
 [node name="LevelWonArea" parent="Borders" instance=ExtResource("11_kvpfn")]
 position = Vector2(2712, -8)

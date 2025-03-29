@@ -23,9 +23,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		jump_noise.play()
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	
 	#Gets the input direction -1, 0, 1
 	var direction := Input.get_axis("move_left", "move_right")
 	

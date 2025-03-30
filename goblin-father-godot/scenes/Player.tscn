@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://d21xhwirpnols"]
+[gd_scene load_steps=40 format=3 uid="uid://d21xhwirpnols"]
 
 [ext_resource type="Script" uid="uid://7fvs1cj2t7x3" path="res://scripts/player.gd" id="1_v6fml"]
 [ext_resource type="Texture2D" uid="uid://dtxcnwvpgvshy" path="res://assets/knight 2.png" id="2_v6fml"]
 [ext_resource type="AudioStream" uid="uid://ctp0tdtrf5lpj" path="res://sounds/player_death.mp3" id="3_mdl7e"]
 [ext_resource type="AudioStream" uid="uid://cd6i8mfwf8kq" path="res://sounds/player_jump.mp3" id="4_mdl7e"]
+[ext_resource type="AudioStream" uid="uid://dubgpihw3gna2" path="res://sounds/player_enters_pipe.wav" id="5_qu4a1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3li8b"]
 atlas = ExtResource("2_v6fml")
@@ -24,6 +25,42 @@ region = Rect2(96, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_b8lor"]
 atlas = ExtResource("2_v6fml")
 region = Rect2(192, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6e537"]
+atlas = ExtResource("2_v6fml")
+region = Rect2(256, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p07f3"]
+atlas = ExtResource("2_v6fml")
+region = Rect2(288, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_viqgg"]
+atlas = ExtResource("2_v6fml")
+region = Rect2(320, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fgkxt"]
+atlas = ExtResource("2_v6fml")
+region = Rect2(352, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsi7p"]
+atlas = ExtResource("2_v6fml")
+region = Rect2(384, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jpwa"]
+atlas = ExtResource("2_v6fml")
+region = Rect2(416, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfeki"]
+atlas = ExtResource("2_v6fml")
+region = Rect2(448, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axnmu"]
+atlas = ExtResource("2_v6fml")
+region = Rect2(480, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvsjc"]
+atlas = ExtResource("2_v6fml")
+region = Rect2(480, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v6fml"]
 atlas = ExtResource("2_v6fml")
@@ -118,6 +155,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_6e537")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p07f3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_viqgg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fgkxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsi7p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jpwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfeki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axnmu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fvsjc")
+}],
+"loop": true,
+"name": &"pipe_up",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_v6fml")
 }, {
 "duration": 1.0,
@@ -176,7 +245,10 @@ size = Vector2(10, 15.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0vlq"]
 size = Vector2(10, 15)
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qu4a1"]
+size = Vector2(8, 1)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 5
 collision_layer = 2
 floor_constant_speed = true
@@ -185,10 +257,10 @@ script = ExtResource("1_v6fml")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_mdl7e")
-animation = &"jumping"
+animation = &"pipe_up"
 autoplay = "idle"
 
-[node name="Area2D" type="Area2D" parent="." groups=["player"]]
+[node name="Area2D" type="Area2D" parent="." groups=["player_head"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -11.75)
@@ -206,6 +278,9 @@ ignore_time_scale = true
 wait_time = 3.0
 ignore_time_scale = true
 
+[node name="PipeTimer" type="Timer" parent="."]
+wait_time = 0.75
+
 [node name="DeathNoise" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_mdl7e")
 attenuation = 3.03143
@@ -216,6 +291,16 @@ stream = ExtResource("4_mdl7e")
 volume_db = -12.877
 bus = &"SFX"
 
+[node name="PipeNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_qu4a1")
+
+[node name="HeadCheck" type="Area2D" parent="." groups=["player_head"]]
+position = Vector2(0, -22.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeadCheck"]
+shape = SubResource("RectangleShape2D_qu4a1")
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="WinTimer" to="." method="_on_win_timer_timeout"]
+[connection signal="area_entered" from="HeadCheck" to="." method="_on_head_check_area_entered"]

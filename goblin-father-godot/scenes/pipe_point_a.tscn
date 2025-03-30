@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cibgwb0llhgx8"]
+
+[ext_resource type="Script" uid="uid://dqxiwnho4dl24" path="res://scenes/pipe_point_a.gd" id="1_7kwai"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2mef"]
+size = Vector2(30, 1)
+
+[node name="PipePointA" type="Area2D" groups=["pipe"]]
+script = ExtResource("1_7kwai")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_y2mef")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

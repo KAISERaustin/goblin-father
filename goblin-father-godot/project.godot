@@ -38,6 +38,8 @@ player=""
 win=""
 enemy_slime=""
 solid_block=""
+pipe=""
+player_head=""
 
 [input]
 

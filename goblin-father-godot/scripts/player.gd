@@ -9,6 +9,9 @@ const JUMP_VELOCITY = -310.0
 @onready var jump_noise: AudioStreamPlayer2D = $JumpNoise
 @onready var death_noise: AudioStreamPlayer2D = $DeathNoise
 @onready var game_manager: Node = %GameManager
+@onready var pipe_noise: AudioStreamPlayer2D = $PipeNoise
+@onready var pipe_timer: Timer = $PipeTimer
+@onready var head_check: Area2D = $HeadCheck
 
 func ready() -> void:
 	add_to_group("player")
@@ -52,6 +55,7 @@ func landed_on_enemy_slime() -> void:
 	velocity.y = JUMP_VELOCITY * .75
 
 
+
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("win"):
 		win_timer.start()
@@ -60,10 +64,20 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		game_manager.pause_music()
 		Engine.time_scale = 0
 		death_timer.start()
-		
+
 func _on_death_timer_timeout() -> void:
 	Engine.time_scale = 1
 	get_tree().reload_current_scene()
 	
 func _on_win_timer_timeout() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func _on_head_check_area_entered(area: Area2D) -> void:
+	print(area)
+	set_physics_process(false)
+	pipe_noise.play()
+	animated_sprite.play("pipe_up")
+	await animated_sprite.animation_finished
+	pipe_timer.start()
+	Engine.time_scale = 0
+		

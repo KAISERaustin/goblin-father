@@ -127,7 +127,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjw23"]
-size = Vector2(8, 2)
+size = Vector2(7.93802, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2gj0"]
 size = Vector2(12, 9.5)
@@ -157,6 +157,7 @@ target_position = Vector2(-7, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadHitCheck"]
 position = Vector2(0, -11)
+scale = Vector2(1.00781, 1)
 shape = SubResource("RectangleShape2D_pjw23")
 
 [node name="BodyCheck" type="Area2D" parent="." groups=["enemy_slime"]]

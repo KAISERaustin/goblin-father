@@ -51,7 +51,7 @@ func _process(delta) -> void:
 	position.x += direction * SPEED * delta
 
 func _on_head_hit_check_area_entered(area: Area2D) -> void:
-	if area.is_in_group("player"):
+	if area.is_in_group("player_head"):
 		game_manager.make_player_jump()
 		slime_kill.play()
 		is_dead = true

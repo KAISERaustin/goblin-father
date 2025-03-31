@@ -1,6 +1,7 @@
 extends CharacterBody2D
 const SPEED = 100.0
 const JUMP_VELOCITY = -310.0
+var exiting_pipe = false
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var death_timer: Timer = $DeathTimer
@@ -11,7 +12,6 @@ const JUMP_VELOCITY = -310.0
 @onready var game_manager: Node = %GameManager
 @onready var pipe_noise: AudioStreamPlayer2D = $PipeNoise
 @onready var pipe_timer: Timer = $PipeTimer
-@onready var head_check: Area2D = $HeadCheck
 
 func ready() -> void:
 	add_to_group("player")
@@ -36,13 +36,14 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = true
 		
 	#play the animations
-	if is_on_floor():
+	if is_on_floor() and !exiting_pipe:
 		if direction == 0:
 			animated_sprite.play("idle")
 		else:
 			animated_sprite.play("run")
 	else:
-		animated_sprite.play("jumping")
+		if !exiting_pipe:
+			animated_sprite.play("jumping")
 		
 	if direction:
 		velocity.x = direction * SPEED
@@ -54,16 +55,22 @@ func _physics_process(delta: float) -> void:
 func landed_on_enemy_slime() -> void:
 	velocity.y = JUMP_VELOCITY * .75
 
-
-
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("win"):
+		set_physics_process(false)
 		win_timer.start()
 	elif area.is_in_group("enemy_slime"):
 		death_noise.play()
 		game_manager.pause_music()
 		Engine.time_scale = 0
 		death_timer.start()
+	elif area.is_in_group("pipe"):
+		set_physics_process(false)
+		animated_sprite.play("pipe_up")
+		pipe_noise.play()
+		exiting_pipe = true
+		pipe_timer.start()
+		velocity.y = 0
 
 func _on_death_timer_timeout() -> void:
 	Engine.time_scale = 1
@@ -72,12 +79,11 @@ func _on_death_timer_timeout() -> void:
 func _on_win_timer_timeout() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
-func _on_head_check_area_entered(area: Area2D) -> void:
-	print(area)
-	set_physics_process(false)
-	pipe_noise.play()
-	animated_sprite.play("pipe_up")
-	await animated_sprite.animation_finished
-	pipe_timer.start()
-	Engine.time_scale = 0
+func _on_pipe_timer_timeout() -> void:
+		animated_sprite.flip_h = false
+		animated_sprite.play("pipe_right")
+		await get_tree().create_timer(.75).timeout
+		set_physics_process(true)
+		print(exiting_pipe)
+		exiting_pipe = false
 		

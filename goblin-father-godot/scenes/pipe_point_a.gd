@@ -5,7 +5,7 @@ class_name pipe_point_a
 @export var target_point: pipe_point_b
 
 func _on_area_entered(area: Node) -> void:
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(.75).timeout
 	if target_point:
 		var candidate: Node = area
 		while candidate and not candidate.is_in_group("player"):

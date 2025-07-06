@@ -11,14 +11,12 @@ func _on_start_pressed() -> void:
 func _on_options_pressed() -> void:
 	print("Options")
 
-
 func _on_exit_pressed() -> void:
 	animation_player.play("exit_button_pressed")
 	await animation_player.animation_finished
-
 	print("Exit")
 	get_tree().quit()
-	
+
 func _ready() -> void:
 	music.playing = true
 	music.attenuation = 0.0

@@ -2,7 +2,6 @@ extends Area2D
 
 @onready var won_timer: Timer = $"WON TIMER"
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
-
 @onready var game_manager: Node = %GameManager
 
 func _ready() -> void:

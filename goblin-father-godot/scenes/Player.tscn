@@ -1,6 +1,6 @@
 [gd_scene load_steps=47 format=3 uid="uid://d21xhwirpnols"]
 
-[ext_resource type="Script" uid="uid://7fvs1cj2t7x3" path="res://scripts/player.gd" id="1_v6fml"]
+[ext_resource type="Script" uid="uid://7fvs1cj2t7x3" path="res://scripts/entities/player.gd" id="1_v6fml"]
 [ext_resource type="Texture2D" uid="uid://dtxcnwvpgvshy" path="res://assets/knight 2.png" id="2_v6fml"]
 [ext_resource type="AudioStream" uid="uid://ctp0tdtrf5lpj" path="res://sounds/player_death.mp3" id="3_mdl7e"]
 [ext_resource type="AudioStream" uid="uid://cd6i8mfwf8kq" path="res://sounds/player_jump.mp3" id="4_mdl7e"]

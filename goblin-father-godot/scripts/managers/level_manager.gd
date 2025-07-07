@@ -1,10 +1,16 @@
 extends Node
 
-@onready var interface: Node = $"../Interface"
-@onready var game: Node2D = $"../Game"
+@export_group("NodePaths")
+@export var interface_path: NodePath
+@export var game_path:      NodePath
 
-func ready() -> void:
-	game.visible = false
+@onready var interface_node: Node   = get_node(interface_path)
+@onready var game_node:      Node2D = get_node(game_path)
 
-func set_mobile_controls_to_on(_is_mobile_controls_enabled: bool) -> void:
+func _ready() -> void:
+	# Hide the gameplay container at start
+	game_node.visible = false
+
+func set_mobile_controls_to_on(_on: bool) -> void:
+	# TODO: implement toggling of touch controls via interface_node
 	pass

@@ -1,34 +1,30 @@
-# res://scripts/managers/game_manager.gd
 extends Node
-# (no class_name line!)
 
-# Signal emitted whenever the score changes.
+# Configure which node is your Player
+@export var player_path: NodePath = NodePath("Player")
+
 signal score_changed(new_score)
 
-# Signal for requesting the player to bounce (optional).
-signal jump_requested()
-
-# Global score (coins collected)
 var score: int = 0
 
+func _ready() -> void:
+	# Only register each pool once
+	if not PoolManager.has_pool("Coin"):
+		PoolManager.register_pool("Coin", preload("res://scenes/coin.tscn"), 20)
+	if not PoolManager.has_pool("Slime"):
+		PoolManager.register_pool("Slime", preload("res://scenes/slime.tscn"), 10)
+
 func add_point() -> void:
-	"""
-	Increment the score and notify any listeners.
-	"""
 	score += 1
 	emit_signal("score_changed", score)
 
 func make_player_jump() -> void:
-	"""
-	Find the Player node in the current scene and call its bounce method.
-	Logs an error if the Player cannot be found.
-	"""
-	var p = get_tree().get_current_scene().get_node("Player")
-	if p and p is CharacterBody2D:
-		p.landed_on_enemy_slime()
+	var scene = get_tree().get_current_scene()
+	if scene and scene.has_node(player_path):
+		var p = scene.get_node(player_path)
+		if p is CharacterBody2D:
+			p.landed_on_enemy_slime()
+		else:
+			push_error("GameManager: node at '%s' is not a CharacterBody2D" % player_path)
 	else:
-		push_error("GameManager: could not find Player to make it jump")
-
-func _ready() -> void:
-	# Nothing to initialize here yet.
-	pass
+		push_error("GameManager: could not find Player at '%s' in current scene" % player_path)

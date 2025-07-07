@@ -1,21 +1,18 @@
+# res://scripts/gui_manager.gd
 extends Node
+class_name GuiManager
 
-@onready var music: AudioStreamPlayer2D = $Music
-@onready var interface: Node = $".."
+# — NodePath injection for child nodes —
+@export var interface_path: NodePath  = NodePath("..")
 
-var is_mobile_controls_enabled = false
+@onready var interface: Node            = get_node(interface_path)
+
+var is_mobile_controls_enabled: bool = false
 
 func _ready() -> void:
-	music.playing = true
-	music.attenuation = 0.0
-	music.max_distance = 10000.0
-
-func pause_music() -> void:
-	music.playing = false
-
-func play_music() -> void:
-	if !music.playing:
-		music.playing = true
+	# Start or resume the music with default attenuation
+	pass
 
 func _process(_delta: float) -> void:
+	# (Optional per-frame logic could go here)
 	pass

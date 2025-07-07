@@ -198,12 +198,14 @@ _data = {
 }
 
 [node name="Coin" type="Area2D" groups=["coin"]]
+z_index = 2
 collision_mask = 2
 script = ExtResource("1_i64fm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ls27i")
 autoplay = "default"
+frame_progress = 0.726074
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ssuvv")

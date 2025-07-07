@@ -132,11 +132,12 @@ size = Vector2(7.93802, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2gj0"]
 size = Vector2(12, 9.5)
 
-[node name="Slime" type="CharacterBody2D"]
+[node name="Slime" type="CharacterBody2D" groups=["enemy_slime"]]
+z_index = 1
 floor_constant_speed = true
 script = ExtResource("1_n6pvg")
 
-[node name="GroundCheck" type="CollisionShape2D" parent="."]
+[node name="GroundCheck" type="CollisionShape2D" parent="." groups=["enemy_slime"]]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_n6pvg")
 
@@ -171,6 +172,3 @@ shape = SubResource("RectangleShape2D_p2gj0")
 [node name="SlimeKill" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_pjw23")
 bus = &"SFX"
-
-[connection signal="area_entered" from="HeadHitCheck" to="." method="_on_head_hit_check_area_entered"]
-[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

@@ -1,4 +1,3 @@
-# res://scripts/managers/audio_manager.gd
 extends Node
 
 # Internal players for BGM and one-shot SFX

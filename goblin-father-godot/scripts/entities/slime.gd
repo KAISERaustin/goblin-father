@@ -1,23 +1,37 @@
 extends CharacterBody2D
 
 const SPEED = 30
-var direction = 1
-var is_dead = false
 
-@onready var ray_cast_left: RayCast2D = $RayCastLeft
-@onready var ray_cast_right: RayCast2D = $RayCastRight
+# NodePath injections
+@export var head_hit_check_path: NodePath   = NodePath("HeadHitCheck")
+@export var body_check_path:    NodePath   = NodePath("BodyCheck")
+@export var ray_cast_left_path: NodePath   = NodePath("RayCastLeft")
+@export var ray_cast_right_path:NodePath   = NodePath("RayCastRight")
+@export var ground_check_path: NodePath    = NodePath("GroundCheck")
+@export var animated_sprite_path: NodePath= NodePath("AnimatedSprite2D")
+@export var slime_kill_path:    NodePath   = NodePath("SlimeKill")
 
-@onready var head_hit_check: Area2D = $HeadHitCheck
-@onready var body_check: Area2D = $BodyCheck
-@onready var ground_check: CollisionShape2D = $GroundCheck
+# Onready references
+@onready var head_hit_check:    Area2D               = get_node(head_hit_check_path)
+@onready var body_check:        Area2D               = get_node(body_check_path)
+@onready var ray_cast_left:     RayCast2D            = get_node(ray_cast_left_path)
+@onready var ray_cast_right:    RayCast2D            = get_node(ray_cast_right_path)
+@onready var ground_check:      CollisionShape2D     = get_node(ground_check_path)
+@onready var animated_sprite:   AnimatedSprite2D     = get_node(animated_sprite_path)
+@onready var slime_kill:        AudioStreamPlayer2D  = get_node(slime_kill_path)
+@onready var game_manager:      Node                 = GameManager
 
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var slime_kill: AudioStreamPlayer2D = $SlimeKill
+# State
+var is_dead: bool = false
+var direction: int = 1
 
-@onready var game_manager: Node = %GameManager
-@onready var death_timer: Timer = $DeathTimer
-
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+func _ready() -> void:
+	# Stomp (head) overlap
+	head_hit_check.area_entered.connect(_on_head_hit)
+	# Body collision with player → reload scene
+	body_check.body_entered.connect(_on_body_collision)
+	# Debug
+	print("[Slime] Ready. head_hit_check →", head_hit_check, ", body_check →", body_check)
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
@@ -28,27 +42,30 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0
 	move_and_slide()
 
-func _process(delta) -> void:
+func _process(delta: float) -> void:
 	if is_dead:
 		return
+	# Simple patrol
 	if ray_cast_left.is_colliding():
 		direction = -1
 		animated_sprite.flip_h = true
-	if ray_cast_right.is_colliding():
+	elif ray_cast_right.is_colliding():
 		direction = 1
 		animated_sprite.flip_h = false
 	position.x += direction * SPEED * delta
 
-func _on_head_hit_check_area_entered(area: Area2D) -> void:
+func _on_head_hit(area: Area2D) -> void:
 	if area.is_in_group("player_head"):
+		# Bounce the player
 		game_manager.make_player_jump()
+		# Play kill SFX and death anim
 		slime_kill.play()
 		is_dead = true
-		head_hit_check.queue_free()
-		body_check.queue_free()
-		velocity.y = 0
-		ground_check.queue_free()
-		ray_cast_left.queue_free()
-		ray_cast_right.queue_free()
-		direction = 0
 		animated_sprite.play("Death")
+		# Return this slime to its pool instead of freeing
+		PoolManager.free_instance("Slime", self)
+
+func _on_body_collision(body) -> void:
+	if body.is_in_group("player"):
+		# Player died → restart level
+		get_tree().reload_current_scene()

@@ -1,22 +1,43 @@
+# res://scripts/player.gd
 extends CharacterBody2D
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -310.0
-var exiting_pipe = false
 
-@onready var collision_shape_2d: CollisionShape2D     = $CollisionShape2D
-@onready var death_timer: Timer                      = $DeathTimer
-@onready var win_timer: Timer                        = $WinTimer
-@onready var animated_sprite: AnimatedSprite2D       = $AnimatedSprite2D
-@onready var jump_noise: AudioStreamPlayer2D         = $JumpNoise
-@onready var death_noise: AudioStreamPlayer2D        = $DeathNoise
-@onready var game_manager: Node                      = %GameManager
-@onready var pipe_noise: AudioStreamPlayer2D         = $PipeNoise
-@onready var pipe_timer: Timer                       = $PipeTimer
+# — NodePath injections for child nodes —
+@export var collision_shape_path: NodePath  = NodePath("CollisionShape2D")
+@export var death_timer_path: NodePath      = NodePath("DeathTimer")
+@export var win_timer_path: NodePath        = NodePath("WinTimer")
+@export var animated_sprite_path: NodePath  = NodePath("AnimatedSprite2D")
+@export var jump_noise_path: NodePath       = NodePath("JumpNoise")
+@export var death_noise_path: NodePath      = NodePath("DeathNoise")
+@export var pipe_noise_path: NodePath       = NodePath("PipeNoise")
+@export var pipe_timer_path: NodePath       = NodePath("PipeTimer")
+@export var body_check_path: NodePath       = NodePath("Body Check")
+
+# — Onready node references resolved via the exported paths —
+@onready var collision_shape_2d:  CollisionShape2D     = get_node(collision_shape_path)
+@onready var death_timer:         Timer                = get_node(death_timer_path)
+@onready var win_timer:           Timer                = get_node(win_timer_path)
+@onready var animated_sprite:     AnimatedSprite2D     = get_node(animated_sprite_path)
+@onready var jump_noise:          AudioStreamPlayer2D  = get_node(jump_noise_path)
+@onready var death_noise:         AudioStreamPlayer2D  = get_node(death_noise_path)
+@onready var pipe_noise:          AudioStreamPlayer2D  = get_node(pipe_noise_path)
+@onready var pipe_timer:          Timer                = get_node(pipe_timer_path)
+@onready var body_check:          Area2D               = get_node(body_check_path)
+
+
+var exiting_pipe: bool = false
 
 func _ready() -> void:
-	# Register this node in the "player" group
+	# Register in the "player" group
 	add_to_group("player")
+	# Connect timers' timeout signals (if not wired in the editor)
+	death_timer.timeout.connect(_on_death_timer_timeout)
+	win_timer.timeout.connect(_on_win_timer_timeout)
+	pipe_timer.timeout.connect(_on_pipe_timer_timeout)
+	body_check.body_entered.connect(_on_body_check_body_entered)
+
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity if airborne
@@ -28,14 +49,11 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		jump_noise.play()
 
-	# Left/right input (-1, 0, +1)
+	# Horizontal input
 	var direction := Input.get_axis("move_left", "move_right")
-	if direction > 0:
-		animated_sprite.flip_h = false
-	elif direction < 0:
-		animated_sprite.flip_h = true
+	animated_sprite.flip_h = (direction < 0)
 
-	# Footprint animations
+	# Play animations based on state
 	if is_on_floor() and not exiting_pipe:
 		if direction == 0:
 			animated_sprite.play("idle")
@@ -44,7 +62,7 @@ func _physics_process(delta: float) -> void:
 	elif not exiting_pipe:
 		animated_sprite.play("jumping")
 
-	# Horizontal velocity (with smoothing when no input)
+	# Smooth horizontal movement
 	if direction != 0:
 		velocity.x = direction * SPEED
 	else:
@@ -53,20 +71,19 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func landed_on_enemy_slime() -> void:
-	# Called by slime to bounce the player
+	# Bounce on slime
 	velocity.y = JUMP_VELOCITY * 0.75
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	# Win, death, and pipe interactions
-	if area.is_in_group("win"):
+func _on_body_check_body_entered(body) -> void:
+	# Win, death, or pipe interactions
+	if body.is_in_group("win"):
 		set_physics_process(false)
 		win_timer.start()
-	elif area.is_in_group("enemy_slime"):
+	elif body.is_in_group("enemy_slime"):
 		death_noise.play()
-		game_manager.pause_music()
 		Engine.time_scale = 0
 		death_timer.start()
-	elif area.is_in_group("pipe"):
+	elif body.is_in_group("pipe"):
 		set_physics_process(false)
 		animated_sprite.play("pipe_up")
 		pipe_noise.play()

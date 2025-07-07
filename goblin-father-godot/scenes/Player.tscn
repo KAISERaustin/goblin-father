@@ -301,7 +301,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v6fml"]
-size = Vector2(10, 20)
+size = Vector2(11, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0vlq"]
 size = Vector2(10, 16)
@@ -320,10 +320,10 @@ autoplay = "idle"
 frame = 7
 frame_progress = 1.0
 
-[node name="Area2D" type="Area2D" parent="." groups=["player_head"]]
+[node name="Body Check" type="Area2D" parent="." groups=["player_head"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -14)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body Check"]
+position = Vector2(0.5, -14)
 shape = SubResource("RectangleShape2D_v6fml")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -354,8 +354,3 @@ bus = &"SFX"
 
 [node name="PipeNoise" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_qu4a1")
-
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
-[connection signal="timeout" from="WinTimer" to="." method="_on_win_timer_timeout"]
-[connection signal="timeout" from="PipeTimer" to="." method="_on_pipe_timer_timeout"]

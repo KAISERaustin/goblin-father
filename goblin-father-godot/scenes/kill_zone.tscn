@@ -8,6 +8,7 @@ b = Vector2(300, 0)
 [node name="KillZone" type="Area2D" groups=["killzone"]]
 collision_mask = 2
 script = ExtResource("1_kebdr")
+timer_path = NodePath("Timer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("SegmentShape2D_kebdr")
@@ -15,6 +16,3 @@ shape = SubResource("SegmentShape2D_kebdr")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.6
 one_shot = true
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

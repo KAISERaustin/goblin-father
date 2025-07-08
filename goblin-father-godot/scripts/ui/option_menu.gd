@@ -11,6 +11,7 @@ func _ready() -> void:
 func _on_enable_mobile_controls_pressed() -> void:
 	animation_player.play("enable_mobile_controls")
 	await animation_player.animation_finished
+	GameManager.toggle_mobile_controls()
 
 func _on_main_menu_pressed() -> void:
 	animation_player.play("enable_mobile_controls")

@@ -195,7 +195,7 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_mdl7e")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.619255
+frame_progress = 0.230909
 
 [node name="Body Check" type="Area2D" parent="." groups=["player", "player_head"]]
 

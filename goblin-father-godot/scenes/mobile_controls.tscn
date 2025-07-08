@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c67584e8e8ji1"]
+
+[ext_resource type="Script" uid="uid://m4vpghkw4oho" path="res://scripts/ui/mobile_controls.gd" id="1_4rjyr"]
+[ext_resource type="Texture2D" uid="uid://b6blnhe7y3y2g" path="res://sprites/button_left.png" id="1_5yoks"]
+[ext_resource type="Texture2D" uid="uid://cw6hbuu3l26wu" path="res://sprites/button_right.png" id="2_4rjyr"]
+[ext_resource type="Texture2D" uid="uid://dju0n278aj7e8" path="res://sprites/button_up.png" id="3_y1te1"]
+
+[node name="MobileControls" type="CanvasLayer"]
+layer = 3
+script = ExtResource("1_4rjyr")
+
+[node name="BtnLeft" type="TouchScreenButton" parent="."]
+position = Vector2(80, 450)
+scale = Vector2(5, 5)
+texture_normal = ExtResource("1_5yoks")
+action = "move_left"
+
+[node name="BtnRight" type="TouchScreenButton" parent="."]
+position = Vector2(320, 450)
+scale = Vector2(5, 5)
+texture_normal = ExtResource("2_4rjyr")
+action = "move_right"
+
+[node name="BtnJump" type="TouchScreenButton" parent="."]
+position = Vector2(950, 450)
+scale = Vector2(5.15625, 5.15625)
+texture_normal = ExtResource("3_y1te1")
+action = "jump"

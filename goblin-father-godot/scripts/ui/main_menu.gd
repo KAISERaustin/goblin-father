@@ -17,10 +17,6 @@ extends Control
 
 func _ready() -> void:
 	_background.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	assert(_start_button,   "Start button not found at "   + str(start_button_path))
-	assert(_options_button, "Options button not found at " + str(options_button_path))
-	assert(_exit_button,    "Exit button not found at "    + str(exit_button_path))
-	assert(_click_sound,    "Click sound player not at "   + str(click_sound_path))
 	_start_button.pressed.connect(_on_start_button_pressed)
 	_options_button.pressed.connect(_on_options_button_pressed)
 	_exit_button.pressed.connect(_on_exit_button_pressed)

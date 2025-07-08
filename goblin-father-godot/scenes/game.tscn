@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=4 uid="uid://d1dq0mprty0tc"]
+[gd_scene load_steps=12 format=4 uid="uid://d1dq0mprty0tc"]
 
+[ext_resource type="PackedScene" uid="uid://c67584e8e8ji1" path="res://scenes/mobile_controls.tscn" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://c4lm7oc3k17yx" path="res://scenes/AudioManager.tscn" id="1_gee14"]
 [ext_resource type="PackedScene" uid="uid://d21xhwirpnols" path="res://scenes/Player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://brou21ywi6mar" path="res://sprites/world_tileset.png" id="2_trtic"]
@@ -249,11 +250,13 @@ sources/1 = SubResource("TileSetAtlasSource_ir15t")
 
 [node name="Game" type="Node2D"]
 
+[node name="MobileControls" parent="." instance=ExtResource("1_0tnpc")]
+
 [node name="AudioManager" parent="." instance=ExtResource("1_gee14")]
-default_music = null
 
 [node name="GameManager" parent="." instance=ExtResource("9_kvuet")]
 unique_name_in_owner = true
+player_path = NodePath("../Player")
 
 [node name="TileMap" type="Node" parent="."]
 

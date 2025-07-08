@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Goblin Father"
-run/main_scene="uid://d1dq0mprty0tc"
+run/main_scene="uid://bg6q6stldaypm"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

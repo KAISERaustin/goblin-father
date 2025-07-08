@@ -98,4 +98,3 @@ stream = ExtResource("5_2mid4")
 
 [connection signal="pressed" from="BoxContainer/EnableMobileControls" to="." method="_on_enable_mobile_controls_pressed"]
 [connection signal="pressed" from="BoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
-[connection signal="pressed" from="BoxContainer/Main Menu" to="." method="_on_enable_mobile_controls_pressed"]

@@ -1,6 +1,8 @@
 # res://scripts/managers/game_manager.gd
 extends Node
 
+var mobile_controls_enabled = false
+
 @export var player_path: NodePath = NodePath("Player")
 signal score_changed(new_score)
 signal player_died
@@ -31,3 +33,7 @@ func make_player_jump() -> void:
 
 func handle_player_death() -> void:
 	emit_signal("player_died")
+	
+func toggle_mobile_controls() -> void:
+	mobile_controls_enabled = not mobile_controls_enabled
+	print("Mobile controls now:", mobile_controls_enabled)

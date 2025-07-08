@@ -9,7 +9,7 @@ extends Node
 @export var spawn_positions: Array[Vector2] = []
 
 # — How close the player must be to a spawn point to spawn a coin —
-const SPAWN_DISTANCE: float = 150.0
+const SPAWN_DISTANCE: float = 200.0
 # — Additional buffer distance before despawning —
 const DESPAWN_BUFFER: float = 50.0
 

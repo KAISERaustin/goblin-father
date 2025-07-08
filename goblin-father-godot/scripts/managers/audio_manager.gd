@@ -1,40 +1,35 @@
+# res://scripts/managers/AudioManager.gd
 extends Node
 
-# Internal players for BGM and one-shot SFX
-var _music_player: AudioStreamPlayer2D
-var _sfx_player:   AudioStreamPlayer2D
+@export var default_music: AudioStream
+
+@onready var _music_player := AudioStreamPlayer.new()
 
 func _ready() -> void:
-	# Create and configure the background-music player
-	_music_player = AudioStreamPlayer2D.new()
-	_music_player.bus = "Music"      # Make sure you have a "Music" bus in Audio → Buses
 	add_child(_music_player)
-	# Create and configure the SFX player
-	_sfx_player = AudioStreamPlayer2D.new()
-	_sfx_player.bus = "SFX"          # And a "SFX" bus for sound effects
-	add_child(_sfx_player)
+	_music_player.bus = "Music"
+	_music_player.autoplay = false
+	_music_player.process_mode = Node.PROCESS_MODE_ALWAYS
+	SceneManager.connect("scene_changing", Callable(self, "_on_scene_changing"))
+	SceneManager.connect("scene_loaded",   Callable(self, "_on_scene_loaded"))
+	GameManager.connect("player_died",     Callable(self, "_on_player_died"))
+	_on_scene_loaded()
 
-func play_music(stream: AudioStream) -> void:
-	"""
-	Switch to (or start) a new music track.
-	Pass in a preloaded AudioStream (OGG, WAV, etc.).
-	"""
-	_music_player.stream = stream
-	_music_player.play()
+func _on_scene_changing() -> void:
+	# continue playing across scenes
+	pass
 
-func pause_music() -> void:
-	_music_player.pause()
+func _on_scene_loaded() -> void:
+	if default_music:
+		_music_player.stream = default_music
+		_music_player.play()
 
-func resume_music() -> void:
-	_music_player.play()
-
-func stop_music() -> void:
+func _on_player_died() -> void:
 	_music_player.stop()
 
 func play_sfx(stream: AudioStream) -> void:
-	"""
-	Play a one-shot sound effect.
-	Reuses the same player each time.
-	"""
-	_sfx_player.stream = stream
-	_sfx_player.play()
+	var sfx := AudioStreamPlayer2D.new()
+	add_child(sfx)
+	sfx.stream = stream
+	sfx.play()
+	sfx.call_deferred("queue_free")

@@ -21,4 +21,4 @@ func _on_body_entered(body: Node) -> void:
 func _on_timer_timeout() -> void:
 	# Restore time and reload the current scene
 	Engine.time_scale = 1.0
-	get_tree().reload_current_scene()
+	SceneManager.reload_current()

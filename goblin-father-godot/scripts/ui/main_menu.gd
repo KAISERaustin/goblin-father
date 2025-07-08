@@ -1,30 +1,49 @@
-# res://scripts/ui/main_menu.gd
+# res://scripts/gui/main_menu.gd
 extends Control
-class_name MainMenu
 
-# — NodePath injection for child nodes —
-@export var animation_player_path: NodePath = NodePath("AnimationPlayer")
-@export var music_path: NodePath            = NodePath("Music")
+# Exposed NodePaths — adjust in Inspector if you rename anything
+@export var start_button_path:   NodePath = NodePath("StartButton")
+@export var options_button_path: NodePath = NodePath("OptionsButton")
+@export var exit_button_path:    NodePath = NodePath("ExitButton")
+@export var click_sound_path:    NodePath = NodePath("AudioStreamPlayer2D")
+@export var background_path:     NodePath = NodePath("BackgroundImage")
 
-@onready var animation_player: AnimationPlayer   = get_node(animation_player_path)
-@onready var music: AudioStreamPlayer2D         = get_node(music_path)
+# Resolved references
+@onready var _start_button   := get_node(start_button_path)   as Button
+@onready var _options_button := get_node(options_button_path) as Button
+@onready var _exit_button    := get_node(exit_button_path)    as Button
+@onready var _click_sound    := get_node(click_sound_path)    as AudioStreamPlayer2D
+@onready var _background     := get_node(background_path)     as Control
 
 func _ready() -> void:
-	# Start background music with default settings
-	music.playing     = true
-	music.attenuation = 0.0
-	music.max_distance = 10000.0
+	# Make sure the background doesn't eat clicks
+	_background.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	# Sanity checks
+	assert(_start_button,   "Start button not found at "   + str(start_button_path))
+	assert(_options_button, "Options button not found at " + str(options_button_path))
+	assert(_exit_button,    "Exit button not found at "    + str(exit_button_path))
+	assert(_click_sound,    "Click sound player not at "   + str(click_sound_path))
+
+	# Hook up signals
+	_start_button.pressed.connect(_on_start_button_pressed)
+	_options_button.pressed.connect(_on_options_button_pressed)
+	_exit_button.pressed.connect(_on_exit_button_pressed)
+
+func _on_start_button_pressed() -> void:
+	print("▶ Start pressed")
+	_click_sound.play()
+	SceneManager.change_scene("res://scenes/game.tscn")
+
+func _on_options_button_pressed() -> void:
+	print("▶ Options pressed")
+	_click_sound.play()
+	SceneManager.change_scene("res://scenes/option_menu.tscn")
+
+func _on_exit_button_pressed() -> void:
+	print("▶ Exit pressed")
+	_click_sound.play()
+	get_tree().quit()
 
 func _on_start_pressed() -> void:
-	animation_player.play("start_button_press")
-	await animation_player.animation_finished
-	get_tree().change_scene_to_file("res://scenes/game.tscn")
-
-func _on_options_pressed() -> void:
-	# TODO: wire up an options menu if needed
-	print("Options")
-
-func _on_exit_pressed() -> void:
-	animation_player.play("exit_button_pressed")
-	await animation_player.animation_finished
-	get_tree().quit()
+	print("▶ Start pressed")

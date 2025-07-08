@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=4 uid="uid://d1dq0mprty0tc"]
+[gd_scene load_steps=12 format=4 uid="uid://d1dq0mprty0tc"]
 
+[ext_resource type="PackedScene" uid="uid://c4lm7oc3k17yx" path="res://scenes/AudioManager.tscn" id="1_gee14"]
 [ext_resource type="PackedScene" uid="uid://d21xhwirpnols" path="res://scenes/Player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://brou21ywi6mar" path="res://sprites/world_tileset.png" id="2_trtic"]
 [ext_resource type="Texture2D" uid="uid://ci2lxo5mrot00" path="res://assets/world_tileset.png" id="2_yqjtg"]
@@ -249,6 +250,9 @@ sources/1 = SubResource("TileSetAtlasSource_ir15t")
 
 [node name="Game" type="Node2D"]
 
+[node name="AudioManager" parent="." instance=ExtResource("1_gee14")]
+default_music = null
+
 [node name="GameManager" parent="." instance=ExtResource("9_kvuet")]
 unique_name_in_owner = true
 
@@ -266,7 +270,8 @@ tile_map_data = PackedByteArray("AAD0/wAAAAAAAAAAAAD1/wAAAAAAAAAAAAD2/wAAAAAAAAA
 tile_set = SubResource("TileSet_lbhrr")
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
-position = Vector2(-104.52, 4)
+position = Vector2(39.41, 7)
+scale = Vector2(1.1, 1.45)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -45)

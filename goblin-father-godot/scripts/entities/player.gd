@@ -5,7 +5,7 @@ const SPEED = 100.0
 const JUMP_VELOCITY = -310.0
 
 # — NodePath injections for child nodes —
-@export var collision_shape_path: NodePath  = NodePath("CollisionShape2D")
+@export var body_collider_path: NodePath  = NodePath("BodyCollider")
 @export var death_timer_path: NodePath      = NodePath("DeathTimer")
 @export var win_timer_path: NodePath        = NodePath("WinTimer")
 @export var animated_sprite_path: NodePath  = NodePath("AnimatedSprite2D")
@@ -16,7 +16,7 @@ const JUMP_VELOCITY = -310.0
 @export var body_check_path: NodePath       = NodePath("Body Check")
 
 # — Onready node references resolved via the exported paths —
-@onready var collision_shape_2d:  CollisionShape2D     = get_node(collision_shape_path)
+@onready var body_collider:       CollisionShape2D     = get_node(body_collider_path)
 @onready var death_timer:         Timer                = get_node(death_timer_path)
 @onready var win_timer:           Timer                = get_node(win_timer_path)
 @onready var animated_sprite:     AnimatedSprite2D     = get_node(animated_sprite_path)
@@ -80,6 +80,7 @@ func _on_body_check_body_entered(body) -> void:
 		set_physics_process(false)
 		win_timer.start()
 	elif body.is_in_group("enemy_slime"):
+		GameManager.handle_player_death()
 		death_noise.play()
 		Engine.time_scale = 0
 		death_timer.start()
@@ -93,10 +94,10 @@ func _on_body_check_body_entered(body) -> void:
 
 func _on_death_timer_timeout() -> void:
 	Engine.time_scale = 1
-	get_tree().reload_current_scene()
+	SceneManager.reload_current()
 
 func _on_win_timer_timeout() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	SceneManager.change_scene("res://scenes/main_menu.tscn")
 
 func _on_pipe_timer_timeout() -> void:
 	# After pipe animation, restore control

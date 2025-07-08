@@ -320,13 +320,14 @@ autoplay = "idle"
 frame = 7
 frame_progress = 1.0
 
-[node name="Body Check" type="Area2D" parent="." groups=["player_head"]]
+[node name="Body Check" type="Area2D" parent="." groups=["player", "player_head"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body Check"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body Check" groups=["player"]]
 position = Vector2(0.5, -14)
 shape = SubResource("RectangleShape2D_v6fml")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BodyCollider" type="CollisionShape2D" parent="." groups=["player"]]
+unique_name_in_owner = true
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_p0vlq")
 

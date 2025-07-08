@@ -8,8 +8,6 @@ size = Vector2(14, 14)
 
 [node name="LevelWonArea" type="Area2D" groups=["win"]]
 script = ExtResource("1_mg273")
-won_timer_path = NodePath("WON TIMER")
-audio_player_path = NodePath("AudioStreamPlayer2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)

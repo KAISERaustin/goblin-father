@@ -1,20 +1,18 @@
 extends Node
 
-# Stores pool data: each entry is { "scene": PackedScene, "free": Array }
 var _pools: Dictionary = {}
 
 func register_pool(pool_name: String, scene: PackedScene, initial_size: int = 0) -> void:
 	if _pools.has(pool_name):
 		push_warning("PoolManager: pool '%s' already exists." % pool_name)
 		return
-	var pool_data: Dictionary = {
+	_pools[pool_name] = {
 		"scene": scene,
 		"free": []
 	}
-	_pools[pool_name] = pool_data
 	for i in range(initial_size):
 		var inst = scene.instantiate()
-		pool_data.free.append(inst)
+		_pools[pool_name].free.append(inst)
 
 func has_pool(pool_name: String) -> bool:
 	return _pools.has(pool_name)
@@ -35,11 +33,27 @@ func get_instance_and_add(pool_name: String, parent: Node) -> Node:
 	return inst
 
 func free_instance(pool_name: String, inst: Node) -> void:
-	# Defer removal to avoid touching a CollisionObject in the physics callback
 	if inst.get_parent():
 		inst.get_parent().call_deferred("remove_child", inst)
 	if not _pools.has(pool_name):
-		push_error("PoolManager: no pool '%s' registered; freeing instance." % pool_name)
 		inst.call_deferred("queue_free")
 		return
 	_pools[pool_name].free.append(inst)
+
+# --- New methods below ---
+
+func reset_pool(pool_name: String) -> void:
+	"""
+	Clears all cached (free) instances for the given pool.
+	Active instances already in the scene are untouched.
+	"""
+	if _pools.has(pool_name):
+		_pools[pool_name].free.clear()
+
+func reset_all_pools() -> void:
+	"""
+	Clears the free lists of every registered pool.
+	Call this before a level reload to allow reuse of all objects.
+	"""
+	for pool_name in _pools.keys():
+		_pools[pool_name].free.clear()

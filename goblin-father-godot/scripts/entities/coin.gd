@@ -1,3 +1,4 @@
+# res://scripts/managers/coin.gd
 extends Area2D
 
 # NodePath injection for the AnimationPlayer

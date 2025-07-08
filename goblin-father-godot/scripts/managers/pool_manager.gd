@@ -1,3 +1,4 @@
+# res://scripts/managers/pool_manager.gd
 extends Node
 
 var _pools: Dictionary = {}

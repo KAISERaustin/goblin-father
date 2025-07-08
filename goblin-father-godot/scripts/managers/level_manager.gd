@@ -1,3 +1,4 @@
+# res://scripts/managers/level_manager.gd
 extends Node
 
 @export_group("NodePaths")

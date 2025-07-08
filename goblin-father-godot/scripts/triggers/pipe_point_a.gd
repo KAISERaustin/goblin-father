@@ -1,3 +1,4 @@
+# res://scripts/managers/pipe_point_a.gd
 extends Area2D
 class_name pipe_point_a
 

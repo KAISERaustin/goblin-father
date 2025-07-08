@@ -5,11 +5,11 @@ signal scene_changing
 signal scene_loaded
 
 @export var fade_layer_path: NodePath = "FadeLayer"
-@export var fade_rect_path:  NodePath = "FadeLayer/ColorRect"
-@export var fade_duration:   float   = 0.5
+@export var fade_rect_path: NodePath = "FadeLayer/ColorRect"
+@export var fade_duration: float = 0.5
 
 @onready var _fade_layer := get_node(fade_layer_path) as CanvasLayer
-@onready var _fade_rect  := get_node(fade_rect_path)  as ColorRect
+@onready var _fade_rect := get_node(fade_rect_path) as ColorRect
 
 var _next_scene: String = ""
 
@@ -43,12 +43,9 @@ func reload_current() -> void:
 	Engine.time_scale = 1
 	change_scene(cur)
 
-# new: called by the Slime when its death timer runs out
 func return_slime_to_pool(slime: CharacterBody2D) -> void:
-	# disable it so it stops processing / colliding immediately
 	slime.is_dead = false
 	slime.visible = false
 	slime.set_physics_process(false)
 	slime.set_process(false)
-	# hand it back to your PoolManager
 	PoolManager.free_instance("Slime", slime)

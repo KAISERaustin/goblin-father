@@ -1,31 +1,24 @@
 # res://scripts/gui/main_menu.gd
 extends Control
 
-# Exposed NodePaths — adjust in Inspector if you rename anything
-@export var start_button_path:   NodePath = NodePath("StartButton")
+@export var start_button_path: NodePath = NodePath("StartButton")
 @export var options_button_path: NodePath = NodePath("OptionsButton")
-@export var exit_button_path:    NodePath = NodePath("ExitButton")
-@export var click_sound_path:    NodePath = NodePath("AudioStreamPlayer2D")
-@export var background_path:     NodePath = NodePath("BackgroundImage")
+@export var exit_button_path: NodePath = NodePath("ExitButton")
+@export var click_sound_path: NodePath = NodePath("AudioStreamPlayer2D")
+@export var background_path: NodePath = NodePath("BackgroundImage")
 
-# Resolved references
-@onready var _start_button   := get_node(start_button_path)   as Button
+@onready var _start_button := get_node(start_button_path) as Button
 @onready var _options_button := get_node(options_button_path) as Button
-@onready var _exit_button    := get_node(exit_button_path)    as Button
-@onready var _click_sound    := get_node(click_sound_path)    as AudioStreamPlayer2D
-@onready var _background     := get_node(background_path)     as Control
+@onready var _exit_button := get_node(exit_button_path) as Button
+@onready var _click_sound := get_node(click_sound_path) as AudioStreamPlayer2D
+@onready var _background := get_node(background_path) as Control
 
 func _ready() -> void:
-	# Make sure the background doesn't eat clicks
 	_background.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-	# Sanity checks
-	assert(_start_button,   "Start button not found at "   + str(start_button_path))
+	assert(_start_button, "Start button not found at " + str(start_button_path))
 	assert(_options_button, "Options button not found at " + str(options_button_path))
-	assert(_exit_button,    "Exit button not found at "    + str(exit_button_path))
-	assert(_click_sound,    "Click sound player not at "   + str(click_sound_path))
-
-	# Hook up signals
+	assert(_exit_button, "Exit button not found at " + str(exit_button_path))
+	assert(_click_sound, "Click sound player not at " + str(click_sound_path))
 	_start_button.pressed.connect(_on_start_button_pressed)
 	_options_button.pressed.connect(_on_options_button_pressed)
 	_exit_button.pressed.connect(_on_exit_button_pressed)

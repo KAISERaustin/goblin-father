@@ -41,8 +41,6 @@ func free_instance(pool_name: String, inst: Node) -> void:
 		return
 	_pools[pool_name].free.append(inst)
 
-# --- New methods below ---
-
 func reset_pool(pool_name: String) -> void:
 	"""
 	Clears all cached (free) instances for the given pool.

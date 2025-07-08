@@ -2,11 +2,9 @@
 extends Node
 class_name UIManager
 
-# — NodePath injection for the score label —
 @export var score_label_path: NodePath = NodePath("GUI/lblscore")
 
 func _ready() -> void:
-	# Bind to the GameManager.score_changed signal
 	GameManager.score_changed.connect(_on_score_changed)
 
 func _on_score_changed(new_score: int) -> void:

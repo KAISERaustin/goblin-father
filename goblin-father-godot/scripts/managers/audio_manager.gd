@@ -11,12 +11,11 @@ func _ready() -> void:
 	_music_player.autoplay = false
 	_music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	SceneManager.connect("scene_changing", Callable(self, "_on_scene_changing"))
-	SceneManager.connect("scene_loaded",   Callable(self, "_on_scene_loaded"))
-	GameManager.connect("player_died",     Callable(self, "_on_player_died"))
+	SceneManager.connect("scene_loaded", Callable(self, "_on_scene_loaded"))
+	GameManager.connect("player_died", Callable(self, "_on_player_died"))
 	_on_scene_loaded()
 
 func _on_scene_changing() -> void:
-	# continue playing across scenes
 	pass
 
 func _on_scene_loaded() -> void:

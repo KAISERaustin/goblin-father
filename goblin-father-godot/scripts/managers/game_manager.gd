@@ -8,9 +8,7 @@ signal player_died
 var score: int = 0
 
 func _ready() -> void:
-	# Reset all pools on scene start
 	PoolManager.reset_all_pools()
-	# Register pools if not already registered
 	if not PoolManager.has_pool("Coin"):
 		PoolManager.register_pool("Coin", preload("res://scenes/coin.tscn"), 20)
 	if not PoolManager.has_pool("Slime"):

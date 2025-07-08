@@ -3,26 +3,26 @@ extends CharacterBody2D
 
 const SPEED = 30
 
-@export var ray_cast_left_path: NodePath = NodePath("RayCastLeft")
-@export var ray_cast_right_path: NodePath = NodePath("RayCastRight")
-@export var head_hit_check_path: NodePath = NodePath("HeadHitCheck")
-@export var body_check_path: NodePath = NodePath("BodyCheck")
-@export var ground_check_path: NodePath = NodePath("GroundCheck")
+@export var ray_cast_left_path:   NodePath = NodePath("RayCastLeft")
+@export var ray_cast_right_path:  NodePath = NodePath("RayCastRight")
+@export var head_hit_check_path:  NodePath = NodePath("HeadHitCheck")
+@export var body_check_path:      NodePath = NodePath("BodyCheck")
+@export var ground_check_path:    NodePath = NodePath("GroundCheck")
 @export var animated_sprite_path: NodePath = NodePath("AnimatedSprite2D")
-@export var slime_kill_path: NodePath = NodePath("SlimeKill")
-@export var death_timer_path: NodePath = NodePath("DeathTimer")
+@export var slime_kill_path:      NodePath = NodePath("SlimeKill")
+@export var death_timer_path:     NodePath = NodePath("DeathTimer")
 
-@onready var ray_cast_left: RayCast2D = get_node(ray_cast_left_path)
-@onready var ray_cast_right: RayCast2D = get_node(ray_cast_right_path)
-@onready var head_hit_check: Area2D = get_node(head_hit_check_path)
-@onready var body_check: Area2D = get_node(body_check_path)
-@onready var ground_check: CollisionShape2D = get_node(ground_check_path)
-@onready var animated_sprite: AnimatedSprite2D = get_node(animated_sprite_path)
-@onready var slime_kill: AudioStreamPlayer2D = get_node(slime_kill_path)
-@onready var death_timer: Timer = get_node(death_timer_path)
+@onready var ray_cast_left:   RayCast2D           = get_node(ray_cast_left_path)
+@onready var ray_cast_right:  RayCast2D           = get_node(ray_cast_right_path)
+@onready var head_hit_check:  Area2D              = get_node(head_hit_check_path)
+@onready var body_check:      Area2D              = get_node(body_check_path)
+@onready var ground_check:    CollisionShape2D    = get_node(ground_check_path)
+@onready var animated_sprite: AnimatedSprite2D    = get_node(animated_sprite_path)
+@onready var slime_kill:      AudioStreamPlayer2D = get_node(slime_kill_path)
+@onready var death_timer:     Timer               = get_node(death_timer_path)
 
-@onready var game_manager: Node = GameManager
-@onready var scene_manager: Node = SceneManager
+@onready var game_manager:    Node                = GameManager
+@onready var scene_manager:   Node                = SceneManager
 
 var is_dead: bool = false
 var direction: int = 1

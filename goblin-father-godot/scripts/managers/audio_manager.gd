@@ -10,13 +10,9 @@ func _ready() -> void:
 	_music_player.bus = "Music"
 	_music_player.autoplay = false
 	_music_player.process_mode = Node.PROCESS_MODE_ALWAYS
-	SceneManager.connect("scene_changing", Callable(self, "_on_scene_changing"))
 	SceneManager.connect("scene_loaded", Callable(self, "_on_scene_loaded"))
-	GameManager.connect("player_died", Callable(self, "_on_player_died"))
+	GameManager.connect("player_died",   Callable(self, "_on_player_died"))
 	_on_scene_loaded()
-
-func _on_scene_changing() -> void:
-	pass
 
 func _on_scene_loaded() -> void:
 	if default_music:
@@ -26,9 +22,5 @@ func _on_scene_loaded() -> void:
 func _on_player_died() -> void:
 	_music_player.stop()
 
-func play_sfx(stream: AudioStream) -> void:
-	var sfx := AudioStreamPlayer2D.new()
-	add_child(sfx)
-	sfx.stream = stream
-	sfx.play()
-	sfx.call_deferred("queue_free")
+func stop_music() -> void:
+	_music_player.stop()

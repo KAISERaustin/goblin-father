@@ -41,18 +41,6 @@ func free_instance(pool_name: String, inst: Node) -> void:
 		return
 	_pools[pool_name].free.append(inst)
 
-func reset_pool(pool_name: String) -> void:
-	"""
-	Clears all cached (free) instances for the given pool.
-	Active instances already in the scene are untouched.
-	"""
-	if _pools.has(pool_name):
-		_pools[pool_name].free.clear()
-
 func reset_all_pools() -> void:
-	"""
-	Clears the free lists of every registered pool.
-	Call this before a level reload to allow reuse of all objects.
-	"""
 	for pool_name in _pools.keys():
 		_pools[pool_name].free.clear()

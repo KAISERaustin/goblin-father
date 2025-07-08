@@ -4,6 +4,8 @@
 
 [node name="SceneManager" type="Node"]
 script = ExtResource("1_g58rr")
+fade_layer_path = null
+fade_rect_path = null
 fade_duration = 0.2
 
 [node name="FadeLayer" type="CanvasLayer" parent="."]

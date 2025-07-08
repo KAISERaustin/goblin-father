@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://dl6pkudg6gec1" path="res://scripts/spawners/coin_spawner.gd" id="6_p57ef"]
 [ext_resource type="Script" uid="uid://bn62v8066tt68" path="res://scripts/spawners/slime_spawner.gd" id="7_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://bfrni0bppiue5" path="res://scenes/game_manager.tscn" id="9_kvuet"]
-[ext_resource type="PackedScene" uid="uid://drl2nkrpbdbq3" path="res://scenes/gui.tscn" id="14_trtic"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -287,9 +286,6 @@ position_smoothing_speed = 10.0
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Borders" type="Node" parent="."]
-
-[node name="GUI" parent="." instance=ExtResource("14_trtic")]
-visible = false
 
 [node name="CoinSpawner" type="Node" parent="."]
 script = ExtResource("6_p57ef")

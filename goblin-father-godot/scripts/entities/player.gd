@@ -4,25 +4,25 @@ extends CharacterBody2D
 const SPEED = 100.0
 const JUMP_VELOCITY = -310.0
 
-@export var body_collider_path: NodePath = NodePath("BodyCollider")
-@export var death_timer_path: NodePath = NodePath("DeathTimer")
-@export var win_timer_path: NodePath = NodePath("WinTimer")
+@export var body_collider_path:   NodePath = NodePath("BodyCollider")
+@export var death_timer_path:     NodePath = NodePath("DeathTimer")
+@export var win_timer_path:       NodePath = NodePath("WinTimer")
 @export var animated_sprite_path: NodePath = NodePath("AnimatedSprite2D")
-@export var jump_noise_path: NodePath = NodePath("JumpNoise")
-@export var death_noise_path: NodePath = NodePath("DeathNoise")
-@export var pipe_noise_path: NodePath = NodePath("PipeNoise")
-@export var pipe_timer_path: NodePath = NodePath("PipeTimer")
-@export var body_check_path: NodePath = NodePath("Body Check")
+@export var jump_noise_path:      NodePath = NodePath("JumpNoise")
+@export var death_noise_path:     NodePath = NodePath("DeathNoise")
+@export var pipe_noise_path:      NodePath = NodePath("PipeNoise")
+@export var pipe_timer_path:      NodePath = NodePath("PipeTimer")
+@export var body_check_path:      NodePath = NodePath("Body Check")
 
-@onready var body_collider: CollisionShape2D = get_node(body_collider_path)
-@onready var death_timer: Timer = get_node(death_timer_path)
-@onready var win_timer: Timer = get_node(win_timer_path)
-@onready var animated_sprite: AnimatedSprite2D = get_node(animated_sprite_path)
-@onready var jump_noise: AudioStreamPlayer2D = get_node(jump_noise_path)
-@onready var death_noise: AudioStreamPlayer2D = get_node(death_noise_path)
-@onready var pipe_noise: AudioStreamPlayer2D = get_node(pipe_noise_path)
-@onready var pipe_timer: Timer = get_node(pipe_timer_path)
-@onready var body_check: Area2D = get_node(body_check_path)
+@onready var body_collider:    CollisionShape2D    = get_node(body_collider_path)
+@onready var death_timer:      Timer               = get_node(death_timer_path)
+@onready var win_timer:        Timer               = get_node(win_timer_path)
+@onready var animated_sprite:  AnimatedSprite2D    = get_node(animated_sprite_path)
+@onready var jump_noise:       AudioStreamPlayer2D = get_node(jump_noise_path)
+@onready var death_noise:      AudioStreamPlayer2D = get_node(death_noise_path)
+@onready var pipe_noise:       AudioStreamPlayer2D = get_node(pipe_noise_path)
+@onready var pipe_timer:       Timer               = get_node(pipe_timer_path)
+@onready var body_check:       Area2D              = get_node(body_check_path)
 
 var exiting_pipe: bool = false
 
@@ -36,11 +36,14 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		jump_noise.play()
+
 	var direction := Input.get_axis("move_left", "move_right")
-	animated_sprite.flip_h = (direction < 0)
+	animated_sprite.flip_h = direction < 0
+
 	if is_on_floor() and not exiting_pipe:
 		if direction == 0:
 			animated_sprite.play("idle")
@@ -48,10 +51,12 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.play("run")
 	elif not exiting_pipe:
 		animated_sprite.play("jumping")
+
 	if direction != 0:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+
 	move_and_slide()
 
 func landed_on_enemy_slime() -> void:

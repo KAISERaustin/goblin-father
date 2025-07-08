@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6rlrui38bpyu"]
+
+[ext_resource type="Script" uid="uid://c7m5d2rf1p1vn" path="res://scripts/states/win_state.gd" id="1_d8bxi"]
+
+[node name="WinState" type="Node"]
+script = ExtResource("1_d8bxi")
+
+[node name="WinTimer" type="Timer" parent="."]
+
+[node name="WinSound" type="AudioStreamPlayer2D" parent="."]

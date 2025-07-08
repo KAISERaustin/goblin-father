@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://d1dq0mprty0tc"]
+[gd_scene load_steps=11 format=4 uid="uid://d1dq0mprty0tc"]
 
 [ext_resource type="PackedScene" uid="uid://c4lm7oc3k17yx" path="res://scenes/AudioManager.tscn" id="1_gee14"]
 [ext_resource type="PackedScene" uid="uid://d21xhwirpnols" path="res://scenes/Player.tscn" id="1_uwrxv"]
@@ -269,12 +269,13 @@ tile_map_data = PackedByteArray("AAD0/wAAAAAAAAAAAAD1/wAAAAAAAAAAAAD2/wAAAAAAAAA
 tile_set = SubResource("TileSet_lbhrr")
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
-position = Vector2(39.41, 7)
+position = Vector2(39.41, 4.84)
 scale = Vector2(1.1, 1.45)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -45)
-zoom = Vector2(4, 4)
+offset = Vector2(30, 0)
+zoom = Vector2(2.5, 2.5)
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0

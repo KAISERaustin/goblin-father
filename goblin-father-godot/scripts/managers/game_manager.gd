@@ -15,6 +15,12 @@ func _ready() -> void:
 		PoolManager.register_pool("Coin", preload("res://scenes/coin.tscn"), 20)
 	if not PoolManager.has_pool("Slime"):
 		PoolManager.register_pool("Slime", preload("res://scenes/slime.tscn"), 10)
+		
+func _process(_delta: float) -> void:
+	var cur = get_tree().current_scene
+	if cur and mobile_controls_enabled and cur.scene_file_path.ends_with("game.tscn"):
+		MobileControls.canvas.visible = mobile_controls_enabled
+
 
 func add_point() -> void:
 	score += 1
@@ -35,5 +41,5 @@ func handle_player_death() -> void:
 	emit_signal("player_died")
 	
 func toggle_mobile_controls() -> void:
-	mobile_controls_enabled = not mobile_controls_enabled
+	mobile_controls_enabled = true
 	print("Mobile controls now:", mobile_controls_enabled)

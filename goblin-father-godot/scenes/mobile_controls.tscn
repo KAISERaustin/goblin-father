@@ -8,21 +8,22 @@
 [node name="MobileControls" type="CanvasLayer"]
 layer = 3
 script = ExtResource("1_4rjyr")
+canvas_path = NodePath(".")
 
 [node name="BtnLeft" type="TouchScreenButton" parent="."]
-position = Vector2(80, 450)
+position = Vector2(80, 550)
 scale = Vector2(5, 5)
 texture_normal = ExtResource("1_5yoks")
 action = "move_left"
 
 [node name="BtnRight" type="TouchScreenButton" parent="."]
-position = Vector2(320, 450)
+position = Vector2(320, 550)
 scale = Vector2(5, 5)
 texture_normal = ExtResource("2_4rjyr")
 action = "move_right"
 
 [node name="BtnJump" type="TouchScreenButton" parent="."]
-position = Vector2(950, 450)
+position = Vector2(950, 550)
 scale = Vector2(5.15625, 5.15625)
 texture_normal = ExtResource("3_y1te1")
 action = "jump"

@@ -22,6 +22,7 @@ SceneManager="*res://scenes/SceneManager.tscn"
 AudioManager="*res://scenes/AudioManager.tscn"
 PoolManager="*res://scripts/managers/pool_manager.gd"
 TimeManager="*res://scripts/managers/time_manager.gd"
+MobileControls="*res://scenes/mobile_controls.tscn"
 
 [display]
 

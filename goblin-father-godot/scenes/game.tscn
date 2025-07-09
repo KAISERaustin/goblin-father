@@ -251,6 +251,7 @@ sources/1 = SubResource("TileSetAtlasSource_ir15t")
 [node name="Game" type="Node2D"]
 
 [node name="MobileControls" parent="." instance=ExtResource("1_0tnpc")]
+visible = false
 
 [node name="AudioManager" parent="." instance=ExtResource("1_gee14")]
 

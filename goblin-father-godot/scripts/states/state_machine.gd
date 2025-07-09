@@ -19,7 +19,7 @@ func enter_state(state_scene: PackedScene) -> void:
 	_current_state_node.set_process_input(true)
 	_player_node.add_child(_current_state_node)
 	_current_state_node.enter(_player_node)
-	print("StateMachine → entered ", _current_state_node.name)
+	#print("StateMachine → entered ", _current_state_node.name)
 
 
 func physics_process(delta: float) -> void:

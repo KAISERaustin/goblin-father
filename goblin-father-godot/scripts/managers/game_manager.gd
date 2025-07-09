@@ -43,3 +43,17 @@ func handle_player_death() -> void:
 func toggle_mobile_controls() -> void:
 	mobile_controls_enabled = true
 	print("Mobile controls now:", mobile_controls_enabled)
+	
+func enable_double_jump() -> void:
+	var scene = get_tree().current_scene
+	if scene and scene.has_node(player_path):
+		var p = scene.get_node(player_path)
+		if p is CharacterBody2D:
+			p.base_jumps += 1
+			
+func enable_dash() -> void:
+	var scene = get_tree().current_scene
+	if scene and scene.has_node(player_path):
+		var p = scene.get_node(player_path)
+		if p is CharacterBody2D:
+			p.dash_active = true

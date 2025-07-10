@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4lm7oc3k17yx"]
+
+[ext_resource type="Script" uid="uid://dyo7ibwl5cayv" path="res://scripts/managers/audio_manager.gd" id="1_v6v0x"]
+[ext_resource type="AudioStream" uid="uid://cd8qrp831j3u6" path="res://music/overworld_level_one_music.mp3" id="2_v6v0x"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_v6v0x")
+default_music = ExtResource("2_v6v0x")

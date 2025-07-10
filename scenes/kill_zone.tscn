@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjutd5xtqvtxv"]
+
+[ext_resource type="Script" uid="uid://dvcsb5ip5uwvt" path="res://scripts/triggers/killzone.gd" id="1_kebdr"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_kebdr"]
+b = Vector2(300, 0)
+
+[node name="KillZone" type="Area2D" groups=["killzone"]]
+collision_mask = 2
+script = ExtResource("1_kebdr")
+timer_path = NodePath("Timer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_kebdr")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true

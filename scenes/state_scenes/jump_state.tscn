@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://db1mp0a617u23"]
+
+[ext_resource type="Script" uid="uid://caqb1l4bns3xg" path="res://scripts/states/jump_state.gd" id="1_irwh1"]
+[ext_resource type="AudioStream" uid="uid://dtx8yke7yurc0" path="res://sounds/jump.wav" id="2_82kup"]
+
+[node name="JumpState" type="Node"]
+script = ExtResource("1_irwh1")
+
+[node name="JumpNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_82kup")

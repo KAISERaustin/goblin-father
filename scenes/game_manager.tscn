@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfrni0bppiue5"]
+
+[ext_resource type="Script" uid="uid://c58s5l7j4e02v" path="res://scripts/managers/game_manager.gd" id="1_smx3j"]
+[ext_resource type="PackedScene" uid="uid://dimmpboqxbgrp" path="res://scenes/music.tscn" id="2_o2178"]
+[ext_resource type="AudioStream" uid="uid://cd8qrp831j3u6" path="res://music/overworld_level_one_music.mp3" id="3_udu3i"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_smx3j")
+
+[node name="Music" parent="." instance=ExtResource("2_o2178")]
+stream = ExtResource("3_udu3i")

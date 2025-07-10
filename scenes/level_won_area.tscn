@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxotjlnrlvcxw"]
+
+[ext_resource type="Script" uid="uid://dep5jf0v3kc17" path="res://scripts/triggers/level_won_area.gd" id="1_mg273"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mg273"]
+size = Vector2(14, 14)
+
+[node name="LevelWonArea" type="Area2D" groups=["win"]]
+script = ExtResource("1_mg273")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["win"]]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_mg273")

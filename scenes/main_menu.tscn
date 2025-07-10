@@ -1,0 +1,107 @@
+[gd_scene load_steps=7 format=3 uid="uid://bg6q6stldaypm"]
+
+[ext_resource type="Texture2D" uid="uid://c67dqtjkl825l" path="res://assets/New Character Inspiration.png" id="1_l6cm7"]
+[ext_resource type="Script" uid="uid://dl3cdj4lpf52i" path="res://scripts/ui/main_menu.gd" id="1_wu84c"]
+[ext_resource type="AudioStream" uid="uid://d1oyx6r4nybvv" path="res://sounds/button_press.mp3" id="3_bqqt6"]
+
+[sub_resource type="Animation" id="Animation_x6sq6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_hrgik"]
+resource_name = "enable_mobile_controls"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2mid4"]
+_data = {
+&"RESET": SubResource("Animation_x6sq6"),
+&"enable_mobile_controls": SubResource("Animation_hrgik")
+}
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_wu84c")
+start_button_path = NodePath("VBoxContainer/StartButton")
+options_button_path = NodePath("VBoxContainer/OptionsButton")
+exit_button_path = NodePath("VBoxContainer/QuitButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -119.0
+offset_top = -50.5
+offset_right = 119.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+z_index = 1
+layout_mode = 2
+focus_mode = 1
+mouse_default_cursor_shape = 3
+text = "Start"
+icon_alignment = 1
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+z_index = 1
+layout_mode = 2
+focus_mode = 1
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+z_index = 1
+layout_mode = 2
+focus_mode = 1
+text = "Quit"
+
+[node name="BackgroundImage" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -82.0
+offset_right = 1286.0
+offset_bottom = 776.0
+mouse_filter = 2
+texture = ExtResource("1_l6cm7")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_bqqt6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2mid4")
+}
